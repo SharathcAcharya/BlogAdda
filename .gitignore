@@ -1,0 +1,59 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment variables
+.env
+.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
+
+# Production files
+*.local
+
+# Misc
+*.log
+coverage/
+
+# Ignore IDE files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignore package-lock and yarn lock in subfolders (handled at root)
+**/package-lock.json
+**/yarn.lock
+
+# Ignore uploads and generated assets
+uploads/
+public/uploads/
+
+# Ignore test coverage
+coverage/
+
+# Ignore backend specific files
+backend/.env
+backend/.env.*
+
+# Ignore admin specific files
+admin/.env
+admin/.env.*
+
+# Ignore frontend specific files
+frontend/.env
+frontend/.env.*

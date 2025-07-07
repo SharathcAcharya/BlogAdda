@@ -1,0 +1,52 @@
+{
+  "name": "blogadda",
+  "version": "1.0.0",
+  "description": "A modern blogging platform with real-time functionality",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm run install-backend && npm run install-frontend && npm run install-admin",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-admin": "cd admin && npm install",
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\" \"npm run dev-admin\"",
+    "dev-backend": "cd backend && npm run dev",
+    "dev-frontend": "cd frontend && npm run dev",
+    "dev-admin": "cd admin && npm run dev",
+    "build": "npm run build-frontend && npm run build-admin",
+    "build-frontend": "cd frontend && npm run build",
+    "build-admin": "cd admin && npm run build",
+    "start": "cd backend && npm start",
+    "deploy": "npm run install-all && npm run build && npm run seed && npm run index-blogs",
+    "seed": "cd backend && npm run seed",
+    "index-blogs": "cd backend && npm run index-blogs",
+    "test": "npm run test-backend && npm run test-frontend",
+    "test-backend": "cd backend && npm run test",
+    "test-frontend": "cd frontend && npm run test",
+    "prod-setup": "npm run install-all && npm run build",
+    "health-check": "cd backend && node system-check.js",
+    "test-algolia": "cd backend && node test-algolia.js"
+  },
+  "keywords": [
+    "blog",
+    "blogging",
+    "platform",
+    "react",
+    "nodejs",
+    "mongodb",
+    "realtime",
+    "social"
+  ],
+  "author": "BlogAdda Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "frontend",
+    "backend",
+    "admin"
+  ],
+  "dependencies": {
+    "daisyui": "^5.0.43"
+  }
+}
