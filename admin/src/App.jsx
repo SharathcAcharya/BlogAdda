@@ -44,11 +44,22 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   const dispatch = useDispatch();
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
   
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
-  
+
+  // If not loading and not authenticated, redirect to login
+  if (!loading && !isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
