@@ -54,7 +54,7 @@ export const checkAuth = createAsyncThunk(
 const initialState = {
   user: null,
   isAuthenticated: false,
-  loading: true,
+  loading: false, // Changed from true to false
   error: null,
 };
 
