@@ -274,9 +274,17 @@ class SearchService {
     }
 
     try {
-      const analytics = this.client.initAnalytics();
-      const searches = await analytics.getTopSearches({ size: limit });
-      return searches.searches;
+      // For now, return some default popular searches until Algolia analytics is properly configured
+      return [
+        'React',
+        'JavaScript', 
+        'Travel',
+        'Health',
+        'Technology',
+        'Food',
+        'Lifestyle',
+        'Programming'
+      ].slice(0, limit);
     } catch (error) {
       console.error('Error getting popular searches:', error);
       return [];
