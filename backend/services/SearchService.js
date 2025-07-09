@@ -275,7 +275,7 @@ class SearchService {
 
     try {
       // For now, return some default popular searches until Algolia analytics is properly configured
-      return [
+      const searches = [
         'React',
         'JavaScript', 
         'Travel',
@@ -285,6 +285,8 @@ class SearchService {
         'Lifestyle',
         'Programming'
       ].slice(0, limit);
+      
+      return searches;
     } catch (error) {
       console.error('Error getting popular searches:', error);
       return [];

@@ -377,10 +377,10 @@ const AdvancedSearch = ({
                     {popularSearches.map((search, index) => (
                       <button
                         key={index}
-                        onClick={() => handlePopularSearchClick(search.search)}
+                        onClick={() => handlePopularSearchClick(search)}
                         className="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                       >
-                        {search.search}
+                        {search}
                       </button>
                     ))}
                   </div>
