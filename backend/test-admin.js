@@ -6,7 +6,7 @@ async function testAdminLogin() {
     
     const response = await axios.post('http://localhost:5000/api/auth/admin-login', {
       email: 'admin@blogadda.com',
-      password: 'admin123'
+      password: 'Admin@123456'
     }, {
       headers: {
         'Content-Type': 'application/json'

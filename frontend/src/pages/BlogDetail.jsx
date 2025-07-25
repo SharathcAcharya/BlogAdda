@@ -33,7 +33,13 @@ const BlogDetail = () => {
   useEffect(() => {
     if (slug) {
       dispatch(fetchBlogBySlug(slug));
-      dispatch(fetchComments(slug));
+    }
+  }, [dispatch, slug]);
+
+  // Fetch comments only when currentBlog is loaded and has a valid _id
+  useEffect(() => {
+    if (currentBlog && currentBlog._id) {
+      dispatch(fetchComments({ blogId: currentBlog._id, page: 1 }));
     }
   }, [dispatch, slug]);
 

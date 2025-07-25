@@ -87,6 +87,9 @@ const Home = () => {
     featuredBlog,
     hasMore 
   } = useSelector((state) => state.blogs);
+
+  // Debug: Log blogs to verify data
+  console.log('Home page blogs:', blogs);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   // Mouse movement tracking for interactive effects

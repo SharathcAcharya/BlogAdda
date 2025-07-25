@@ -2,7 +2,7 @@ import api from './api';
 
 // Get comments for a blog post
 export const getComments = (blogId, page = 1, limit = 20) => {
-  return api.get(`/blogs/${blogId}/comments?page=${page}&limit=${limit}`);
+  return api.get(`/comments/blog/${blogId}?page=${page}&limit=${limit}`);
 };
 
 // Create a new comment

@@ -7,7 +7,8 @@ export const fetchBlogs = createAsyncThunk(
   async (params = {}, { rejectWithValue }) => {
     try {
       const response = await blogAPI.getBlogs(params);
-      return response.data;
+      // Use response.data.data.blogs and response.data.data.pagination
+      return response.data.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || 'Failed to fetch blogs'
@@ -35,7 +36,7 @@ export const fetchBlogBySlug = createAsyncThunk(
   async (slug, { rejectWithValue }) => {
     try {
       const response = await blogAPI.getBlogBySlug(slug);
-      return response.data.blog;
+      return response.data.data.blog;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || 'Blog not found'
