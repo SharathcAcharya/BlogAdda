@@ -104,13 +104,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       {/* Quick Actions */}
       <div className="p-4 bg-gradient-to-r from-slate-50 to-slate-100 border-t border-slate-200">
         <div className="space-y-2">
-          <Link
-            to="/"
+          <a
+            href={import.meta.env.VITE_FRONTEND_URL || "http://localhost:3000"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center px-3 py-2 text-sm text-slate-700 hover:bg-white hover:text-slate-900 rounded-lg transition-all duration-200 group"
           >
             <GlobeAltIcon className="h-4 w-4 mr-2 text-slate-500 group-hover:text-blue-600" />
             <span className="font-medium">Visit Main Site</span>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
@@ -143,7 +145,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
+              <Dialog.Panel className="relative mr-4 sm:mr-16 flex w-full max-w-xs flex-1">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"

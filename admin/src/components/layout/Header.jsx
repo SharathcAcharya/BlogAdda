@@ -26,10 +26,10 @@ const Header = ({ setSidebarOpen }) => {
 
   return (
     <header className="bg-white/80 backdrop-blur-sm shadow-sm border-b border-slate-200/60 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-3 sm:py-4">
           {/* Left side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <button
               type="button"
               className="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
@@ -38,7 +38,7 @@ const Header = ({ setSidebarOpen }) => {
               <Bars3Icon className="h-6 w-6" />
             </button>
             
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <MagnifyingGlassIcon className="h-5 w-5 text-slate-400" />
@@ -46,30 +46,35 @@ const Header = ({ setSidebarOpen }) => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="block w-80 pl-10 pr-3 py-2 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-500 focus:outline-none focus:placeholder-slate-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="block w-64 lg:w-80 pl-10 pr-3 py-2 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-500 focus:outline-none focus:placeholder-slate-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
             </div>
+
+            {/* Mobile search button */}
+            <button className="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </button>
           </div>
 
           {/* Right side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Theme Toggle */}
             <button
               onClick={() => dispatch(toggleTheme())}
               className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
             >
               {theme === 'light' ? (
-                <MoonIcon className="h-5 w-5" />
+                <MoonIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               ) : (
-                <SunIcon className="h-5 w-5" />
+                <SunIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               )}
             </button>
 
             {/* Notifications */}
             <div className="relative">
               <button className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
-                <BellIcon className="h-5 w-5" />
+                <BellIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center">
                 <span className="text-xs text-white font-bold">3</span>
@@ -79,19 +84,19 @@ const Header = ({ setSidebarOpen }) => {
             {/* User Menu */}
             <Menu as="div" className="relative">
               <div>
-                <Menu.Button className="flex items-center text-sm rounded-xl p-2 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                  <div className="flex items-center space-x-3">
+                <Menu.Button className="flex items-center text-sm rounded-xl p-1 sm:p-2 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
                     <div className="relative">
-                      <div className="w-8 h-8 rounded-lg overflow-hidden shadow-md">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden shadow-md">
                         {user?.profilePic ? (
                           <img src={user.profilePic} alt={user.name} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-                            <UserIcon className="h-5 w-5 text-white" />
+                            <UserIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                           </div>
                         )}
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border border-white"></div>
+                      <div className="absolute -bottom-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full border border-white"></div>
                     </div>
                     <div className="hidden md:block text-left">
                       <div className="text-sm font-semibold text-slate-900">
@@ -101,7 +106,7 @@ const Header = ({ setSidebarOpen }) => {
                         {user?.role || 'Administrator'}
                       </div>
                     </div>
-                    <ChevronDownIcon className="h-4 w-4 text-slate-500" />
+                    <ChevronDownIcon className="h-3 w-3 sm:h-4 sm:w-4 text-slate-500" />
                   </div>
                 </Menu.Button>
               </div>
@@ -114,7 +119,7 @@ const Header = ({ setSidebarOpen }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-slate-200/60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 mt-2 w-48 sm:w-56 origin-top-right bg-white/90 backdrop-blur-sm rounded-xl shadow-xl border border-slate-200/60 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                   <div className="py-2">
                     <Menu.Item>
                       {({ active }) => (

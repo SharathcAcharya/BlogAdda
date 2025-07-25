@@ -6,6 +6,11 @@ export const getUserProfile = async (userId) => {
   return response.data;
 };
 
+export const getUserById = async (userId) => {
+  const response = await api.get(`/users/${userId}`);
+  return response.data;
+};
+
 export const updateUserProfile = async (profileData) => {
   const response = await api.put('/users/profile', profileData);
   return response.data;
@@ -98,6 +103,7 @@ export const getUserActivity = async (userId, page = 1, limit = 20) => {
 
 export default {
   getUserProfile,
+  getUserById,
   updateUserProfile,
   getCurrentUserProfile,
   followUser,

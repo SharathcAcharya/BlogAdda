@@ -173,20 +173,28 @@ const BlogCard = ({ blog, variant = 'default' }) => {
           
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="relative">
+              <Link 
+                to={`/author/${blog.author._id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="relative"
+              >
                 <img
                   src={blog.author.avatar || '/default-avatar.png'}
                   alt={blog.author.name}
-                  className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 group-hover:border-blue-500 transition-colors duration-200"
+                  className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 hover:border-blue-500 transition-colors duration-200"
                 />
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
-              </div>
+              </Link>
               <div>
-                <p className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <Link 
+                  to={`/author/${blog.author._id}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-sm font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
                   {blog.author.name}
-                </p>
+                </Link>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  @{blog.author.username}
+                  @{blog.author.username || blog.author.name.toLowerCase().replace(/\s+/g, '')}
                 </p>
               </div>
             </div>

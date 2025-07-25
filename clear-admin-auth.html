@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Admin Auth - BlogAdda</title>
+</head>
+<body>
+    <h1>Clear Admin Authentication</h1>
+    <p>Click the button below to clear all stored authentication data and reset the admin login:</p>
+    <button onclick="clearAuth()" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Clear Authentication & Reload
+    </button>
+    
+    <script>
+        function clearAuth() {
+            // Clear localStorage
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('persist:admin-auth');
+            
+            // Clear sessionStorage
+            sessionStorage.clear();
+            
+            // Clear all cookies
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            alert('Authentication cleared! Redirecting to admin login...');
+            window.location.href = 'http://localhost:3001';
+        }
+    </script>
+</body>
+</html>

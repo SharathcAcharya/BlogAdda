@@ -61,22 +61,22 @@ const Dashboard = () => {
 
   const StatCard = ({ title, value, change, icon: Icon, color, trend }) => (
     <div className="group relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className={`p-3 rounded-xl ${color} shadow-lg`}>
-              <Icon className="w-8 h-8 text-white" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 rounded-xl sm:rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="relative bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${color} shadow-lg`}>
+              <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white" />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-600 uppercase tracking-wide">{title}</p>
-              <p className="text-3xl font-bold text-slate-900 mt-1">{value}</p>
+              <p className="text-xs sm:text-sm font-medium text-slate-600 uppercase tracking-wide">{title}</p>
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mt-1">{value}</p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right w-full sm:w-auto">
             <div className={`flex items-center space-x-1 ${trend === 'up' ? 'text-emerald-600' : 'text-red-500'}`}>
-              <ArrowTrendingUpIcon className={`w-4 h-4 ${trend === 'down' ? 'rotate-180' : ''}`} />
-              <span className="text-sm font-semibold">{change}</span>
+              <ArrowTrendingUpIcon className={`w-3 h-3 sm:w-4 sm:h-4 ${trend === 'down' ? 'rotate-180' : ''}`} />
+              <span className="text-xs sm:text-sm font-semibold">{change}</span>
             </div>
             <p className="text-xs text-slate-500 mt-1">vs last month</p>
           </div>
@@ -93,25 +93,25 @@ const Dashboard = () => {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300/30 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '1s'}}></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         
         {/* Welcome Header */}
-        <div className="mb-8 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-3xl blur-xl opacity-20"></div>
-          <div className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-white/30 shadow-2xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+        <div className="mb-6 sm:mb-8 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-2xl sm:rounded-3xl blur-xl opacity-20"></div>
+          <div className="relative bg-white/70 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30 shadow-2xl">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+              <div className="flex items-center space-x-3 sm:space-x-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <SparklesIcon className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                    <SparklesIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-6 sm:h-6 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
                 <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                  <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
                     Welcome back, {user?.name}!
                   </h1>
-                  <p className="text-lg text-slate-600 mt-2">
+                  <p className="text-sm sm:text-base lg:text-lg text-slate-600 mt-1 sm:mt-2">
                     {format(new Date(), 'EEEE, MMMM dd, yyyy')} • Here's your platform overview
                   </p>
                 </div>
@@ -135,7 +135,7 @@ const Dashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <StatCard 
             title="Total Users" 
             value={stats?.overview?.totalUsers || 0}

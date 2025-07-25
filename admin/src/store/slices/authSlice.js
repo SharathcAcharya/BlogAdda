@@ -8,8 +8,13 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await loginAPI(credentials);
-      localStorage.setItem('token', response.data.token);
-      return response.data;
+      
+      const token = response.data.token;
+      const user = response.data.user;
+      
+      localStorage.setItem('token', token);
+      
+      return { token, user };
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || 'Login failed. Please check your credentials.'
@@ -37,16 +42,25 @@ export const checkAuth = createAsyncThunk(
   'auth/check',
   async (_, { rejectWithValue }) => {
     try {
-      if (!localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
         return null;
       }
+      
       const response = await getCurrentUser();
-      return response.data;
+      const user = response.data.user;
+      
+      // Verify user has admin privileges
+      if (!user || (user.role !== 'admin' && user.role !== 'moderator')) {
+        localStorage.removeItem('token');
+        return null;
+      }
+      
+      return user;
     } catch (error) {
       localStorage.removeItem('token');
-      return rejectWithValue(
-        error.response?.data?.message || 'Authentication failed.'
-      );
+      return null; // Return null instead of rejecting to avoid showing error
     }
   }
 );
@@ -54,7 +68,7 @@ export const checkAuth = createAsyncThunk(
 const initialState = {
   user: null,
   isAuthenticated: false,
-  loading: false, // Changed from true to false
+  loading: true, // Set to true initially to show loading while checking auth
   error: null,
 };
 
@@ -64,6 +78,12 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    forceLogout: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      localStorage.removeItem('token');
     },
   },
   extraReducers: (builder) => {
@@ -114,6 +134,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, forceLogout } = authSlice.actions;
 
 export default authSlice.reducer;

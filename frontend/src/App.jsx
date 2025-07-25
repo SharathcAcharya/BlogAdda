@@ -21,6 +21,10 @@ import Bookmarks from './pages/Bookmarks';
 import SearchResults from './pages/SearchResults';
 import Analytics from './pages/Analytics';
 import AnimationDemo from './pages/AnimationDemo';
+import Categories from './pages/Categories';
+import AuthorProfile from './pages/AuthorProfile';
+import Authors from './pages/Authors';
+import About from './pages/About';
 
 // Loading Component
 import LoadingSpinner from './components/common/LoadingSpinner';
@@ -108,6 +112,10 @@ function App() {
             {/* Public Routes */}
             <Route path="blog/:slug" element={<BlogDetail />} />
             <Route path="trending" element={<Trending />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="authors" element={<Authors />} />
+            <Route path="author/:id" element={<AuthorProfile />} />
+            <Route path="about" element={<About />} />
             <Route path="search" element={<SearchResults />} />
             <Route path="animations" element={<AnimationDemo />} />
             

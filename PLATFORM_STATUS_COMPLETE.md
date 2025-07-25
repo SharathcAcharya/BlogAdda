@@ -61,11 +61,11 @@ allowedHeaders: ['Content-Type', 'Authorization']
 ```javascript
 // Before: search.search (expecting object with search property)
 // After: search (plain string array)
-{popularSearches.map((search, index) => (
-  <button onClick={() => handlePopularSearchClick(search)}>
-    {search}
-  </button>
-))}
+{
+  popularSearches.map((search, index) => (
+    <button onClick={() => handlePopularSearchClick(search)}>{search}</button>
+  ));
+}
 ```
 
 ## Current Platform Status

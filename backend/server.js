@@ -32,7 +32,12 @@ const server = createServer(app);
 // Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001', 
+      process.env.CLIENT_URL, 
+      process.env.ADMIN_URL
+    ],
     credentials: true
   }
 });

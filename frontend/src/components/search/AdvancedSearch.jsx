@@ -36,6 +36,7 @@ const AdvancedSearch = ({
   const [suggestions, setSuggestions] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [showFiltersPanel, setShowFiltersPanel] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   
   // Filter state
   const [filters, setFilters] = useState({
@@ -160,16 +161,19 @@ const AdvancedSearch = ({
     }
     setShowResults(false);
     setQuery('');
+    setIsFocused(false);
   };
 
   const handleSuggestionClick = (suggestion) => {
     setQuery(suggestion.title);
     setShowResults(false);
+    setIsFocused(true);
     searchInputRef.current?.focus();
   };
 
   const handlePopularSearchClick = (searchTerm) => {
     setQuery(searchTerm);
+    setIsFocused(true);
     performSearch(searchTerm, filters, 0);
   };
 
@@ -178,6 +182,7 @@ const AdvancedSearch = ({
     setResults([]);
     setSuggestions([]);
     setShowResults(false);
+    setIsFocused(false);
     navigate('/search', { replace: true });
     searchInputRef.current?.focus();
   };
@@ -234,6 +239,11 @@ const AdvancedSearch = ({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => {
+              // Delay hiding to allow clicking on results
+              setTimeout(() => setIsFocused(false), 150);
+            }}
             placeholder={placeholder}
             autoFocus={autoFocus}
             className="w-full pl-10 pr-20 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
@@ -265,7 +275,7 @@ const AdvancedSearch = ({
 
       {/* Search Results Dropdown */}
       <AnimatePresence>
-        {(showResults || suggestions.length > 0 || popularSearches.length > 0) && (
+        {isFocused && (showResults || suggestions.length > 0 || popularSearches.length > 0) && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}

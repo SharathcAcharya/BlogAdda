@@ -1,10 +1,11 @@
 {
   "name": "blogadda-admin",
   "version": "1.0.0",
+  "type": "module",
   "description": "Admin panel for BlogAdda platform",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3001",
     "build": "vite build",
     "preview": "vite preview"
   },

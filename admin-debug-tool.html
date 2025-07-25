@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Debug & Reset Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        button { padding: 12px 24px; margin: 10px 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .primary { background: #3b82f6; color: white; }
+        .danger { background: #ef4444; color: white; }
+        .success { background: #10b981; color: white; }
+        .info { background: #6b7280; color: white; }
+        pre { background: #f3f4f6; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .status.success { background: #d1fae5; border: 1px solid #10b981; color: #065f46; }
+        .status.error { background: #fee2e2; border: 1px solid #ef4444; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 BlogAdda Admin Debug Tool</h1>
+        <p>Use this tool to debug and fix admin authentication issues.</p>
+        
+        <div id="status"></div>
+        
+        <h3>🗑️ Clear Authentication Data</h3>
+        <button onclick="clearAllAuth()" class="danger">Clear All Auth Data</button>
+        <button onclick="checkCurrentAuth()" class="info">Check Current Auth</button>
+        
+        <h3>🧪 Test API Connection</h3>
+        <button onclick="testBackendConnection()" class="primary">Test Backend API</button>
+        <button onclick="testAdminLogin()" class="success">Test Admin Login</button>
+        
+        <h3>🚀 Quick Actions</h3>
+        <button onclick="openAdmin()" class="primary">Open Admin Panel</button>
+        <button onclick="openFrontend()" class="info">Open Frontend</button>
+        
+        <h3>📊 Debug Information</h3>
+        <div id="debugInfo"></div>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.className = `status ${type}`;
+            status.innerHTML = message;
+        }
+
+        function updateDebugInfo(info) {
+            document.getElementById('debugInfo').innerHTML = `<pre>${JSON.stringify(info, null, 2)}</pre>`;
+        }
+
+        function clearAllAuth() {
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Clear cookies
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            updateStatus('✅ All authentication data cleared. Admin should now show login form.', 'success');
+            
+            setTimeout(() => {
+                window.open('http://localhost:3001', '_blank');
+            }, 1000);
+        }
+
+        function checkCurrentAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            const allKeys = Object.keys(localStorage);
+            
+            const authInfo = {
+                token: token ? 'Present' : 'Not found',
+                user: user ? JSON.parse(user) : 'Not found',
+                allLocalStorageKeys: allKeys,
+                sessionStorageKeys: Object.keys(sessionStorage),
+                currentURL: window.location.href
+            };
+            
+            updateDebugInfo(authInfo);
+            updateStatus('📊 Current authentication status displayed below', 'success');
+        }
+
+        async function testBackendConnection() {
+            try {
+                const response = await fetch('http://localhost:5000/health');
+                const data = await response.json();
+                updateStatus(`✅ Backend connected: ${data.message}`, 'success');
+                updateDebugInfo({ backendHealth: data });
+            } catch (error) {
+                updateStatus(`❌ Backend connection failed: ${error.message}`, 'error');
+                updateDebugInfo({ error: error.message });
+            }
+        }
+
+        async function testAdminLogin() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/admin-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@blogadda.com',
+                        password: 'Admin@123456'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateStatus('✅ Admin login successful!', 'success');
+                    updateDebugInfo({ 
+                        loginResponse: data,
+                        adminUser: data.user,
+                        token: data.token ? 'Received' : 'Missing'
+                    });
+                } else {
+                    updateStatus(`❌ Admin login failed: ${data.message}`, 'error');
+                    updateDebugInfo({ loginError: data });
+                }
+            } catch (error) {
+                updateStatus(`❌ Login test failed: ${error.message}`, 'error');
+                updateDebugInfo({ error: error.message });
+            }
+        }
+
+        function openAdmin() {
+            window.open('http://localhost:3001', '_blank');
+        }
+
+        function openFrontend() {
+            window.open('http://localhost:3000', '_blank');
+        }
+
+        // Auto-check status on load
+        window.onload = function() {
+            updateStatus('🔧 Admin Debug Tool Ready', 'success');
+            checkCurrentAuth();
+        };
+    </script>
+</body>
+</html>
